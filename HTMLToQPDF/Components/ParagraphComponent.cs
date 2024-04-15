@@ -11,6 +11,8 @@ namespace HTMLQuestPDF.Components
         private readonly List<HtmlNode> lineNodes;
         private readonly Dictionary<string, TextStyle> textStyles;
 
+        private string[] alpha = new string[] { "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z" };
+
         public ParagraphComponent(List<HtmlNode> lineNodes, HTMLComponentsArgs args)
         {
             this.lineNodes = lineNodes;
@@ -40,7 +42,9 @@ namespace HTMLQuestPDF.Components
             {
                 container.Row(row =>
                 {
-                    var listPrefix = numberInList == -1 ? "" : numberInList == 0 ? "•  " : $"{numberInList}. ";
+                    var listPrefix = numberInList == -1 ? "" :
+                                     numberInList == 0 ? "•  " :
+                                     listItemNode.IsLowerAlphaList() ? $"{alpha[numberInList - 1]}. " : $"{numberInList}. ";
                     row.AutoItem().MinWidth(26).AlignCenter().Text(listPrefix);
                     container = row.RelativeItem();
                 });
