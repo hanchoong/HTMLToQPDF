@@ -137,9 +137,10 @@ namespace HTMLQuestPDF.Extensions
 
         public static bool IsLowerAlphaList(this HtmlNode node)
         {
-            return node.ParentNode.Name.ToLower() == "ol"
-                    && node.ParentNode.HasAttributes
-                    && node.ParentNode.Attributes["style"].Value.Contains("lower-alpha");
+            var parentNode = node.ParentNode;
+            return parentNode.Name.ToLower() == "ol"
+                    && parentNode.HasAttributes
+                    && parentNode.Attributes.Any(m => m.Name == "style" && m.Value.Contains("lower-alpha"));
         }
 
         public static bool TryGetLink(this HtmlNode node, out string url)
